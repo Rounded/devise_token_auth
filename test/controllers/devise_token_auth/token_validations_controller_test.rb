@@ -15,7 +15,7 @@ class DeviseTokenAuth::TokenValidationsControllerTest < ActionDispatch::Integrat
 
       @auth_headers = @resource.create_new_auth_token
 
-      @token     = @auth_headers['access-token']
+      @token     = @auth_headers['Access-Token']
       @client_id = @auth_headers['client']
       @expiry    = @auth_headers['expiry']
 
@@ -48,7 +48,7 @@ class DeviseTokenAuth::TokenValidationsControllerTest < ActionDispatch::Integrat
 
     describe 'failure' do
       before do
-        get '/api/v1/auth/validate_token', {}, @auth_headers.merge({"access-token" => "12345"})
+        get '/api/v1/auth/validate_token', {}, @auth_headers.merge({"Access-Token" => "12345"})
         @resp = JSON.parse(response.body)
       end
 

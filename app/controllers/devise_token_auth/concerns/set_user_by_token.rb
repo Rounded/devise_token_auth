@@ -24,9 +24,9 @@ module DeviseTokenAuth::Concerns::SetUserByToken
     return unless rc
 
     # parse header for values necessary for authentication
-    uid        = request.headers['uid'] || params['uid']
-    @token     = request.headers['access-token'] || params['access-token']
-    @client_id = request.headers['client'] || params['client']
+    uid        = request.headers['uid'] || params['uid'] || request.headers["UID"]
+    @token     = request.headers['Access-Token'] || params['Access-Token'] || request.headers['Authorization'].gsub("Bearer","").strip
+    @client_id = request.headers['client'] || params['client'] || request.headers['Client']
 
     # client_id isn't required, set to 'default' if absent
     @client_id ||= 'default'

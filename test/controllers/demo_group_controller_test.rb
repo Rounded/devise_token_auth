@@ -17,7 +17,7 @@ class DemoGroupControllerTest < ActionDispatch::IntegrationTest
 
         @resource_auth_headers = @resource.create_new_auth_token
 
-        @resource_token     = @resource_auth_headers['access-token']
+        @resource_token     = @resource_auth_headers['Access-Token']
         @resource_client_id = @resource_auth_headers['client']
         @resource_expiry    = @resource_auth_headers['expiry']
 
@@ -28,7 +28,7 @@ class DemoGroupControllerTest < ActionDispatch::IntegrationTest
 
         @mang_auth_headers = @mang.create_new_auth_token
 
-        @mang_token     = @mang_auth_headers['access-token']
+        @mang_token     = @mang_auth_headers['Access-Token']
         @mang_client_id = @mang_auth_headers['client']
         @mang_expiry    = @mang_auth_headers['expiry']
       end
@@ -40,7 +40,7 @@ class DemoGroupControllerTest < ActionDispatch::IntegrationTest
 
           get '/demo/members_only_group', {}, @resource_auth_headers
 
-          @resp_token       = response.headers['access-token']
+          @resp_token       = response.headers['Access-Token']
           @resp_client_id   = response.headers['client']
           @resp_expiry      = response.headers['expiry']
           @resp_uid         = response.headers['uid']
@@ -84,7 +84,7 @@ class DemoGroupControllerTest < ActionDispatch::IntegrationTest
 
           get '/demo/members_only_group', {}, @mang_auth_headers
 
-          @resp_token       = response.headers['access-token']
+          @resp_token       = response.headers['Access-Token']
           @resp_client_id   = response.headers['client']
           @resp_expiry      = response.headers['expiry']
           @resp_uid         = response.headers['uid']

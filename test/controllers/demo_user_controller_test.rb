@@ -17,7 +17,7 @@ class DemoUserControllerTest < ActionDispatch::IntegrationTest
 
         @auth_headers = @resource.create_new_auth_token
 
-        @token     = @auth_headers['access-token']
+        @token     = @auth_headers['Access-Token']
         @client_id = @auth_headers['client']
         @expiry    = @auth_headers['expiry']
       end
@@ -29,7 +29,7 @@ class DemoUserControllerTest < ActionDispatch::IntegrationTest
 
           get '/demo/members_only', {}, @auth_headers
 
-          @resp_token       = response.headers['access-token']
+          @resp_token       = response.headers['Access-Token']
           @resp_client_id   = response.headers['client']
           @resp_expiry      = response.headers['expiry']
           @resp_uid         = response.headers['uid']
@@ -75,7 +75,7 @@ class DemoUserControllerTest < ActionDispatch::IntegrationTest
             # ensure that request is not treated as batch request
             age_token(@resource, @client_id)
 
-            get '/demo/members_only', {}, @auth_headers.merge({'access-token' => @resp_token})
+            get '/demo/members_only', {}, @auth_headers.merge({'Access-Token' => @resp_token})
           end
 
           it 'should not treat this request as a batch request' do
@@ -90,11 +90,11 @@ class DemoUserControllerTest < ActionDispatch::IntegrationTest
 
       describe 'failed request' do
         before do
-          get '/demo/members_only', {}, @auth_headers.merge({'access-token' => "bogus"})
+          get '/demo/members_only', {}, @auth_headers.merge({'Access-Token' => "bogus"})
         end
 
         it 'should not return any auth headers' do
-          refute response.headers['access-token']
+          refute response.headers['Access-Token']
         end
 
         it 'should return error: unauthorized status' do
@@ -112,7 +112,7 @@ class DemoUserControllerTest < ActionDispatch::IntegrationTest
 
           @first_is_batch_request = assigns(:is_batch_request)
           @first_user = assigns(:resource).dup
-          @first_access_token = response.headers['access-token']
+          @first_access_token = response.headers['Access-Token']
           @first_response_status = response.status
 
           @resource.reload
@@ -123,7 +123,7 @@ class DemoUserControllerTest < ActionDispatch::IntegrationTest
 
           @second_is_batch_request = assigns(:is_batch_request)
           @second_user = assigns(:resource).dup
-          @second_access_token = response.headers['access-token']
+          @second_access_token = response.headers['Access-Token']
           @second_response_status = response.status
         end
 
@@ -171,13 +171,13 @@ class DemoUserControllerTest < ActionDispatch::IntegrationTest
 
             @first_is_batch_request = assigns(:is_batch_request)
             @first_user = assigns(:resource)
-            @first_access_token = response.headers['access-token']
+            @first_access_token = response.headers['Access-Token']
 
             get '/demo/members_only', {}, @auth_headers
 
             @second_is_batch_request = assigns(:is_batch_request)
             @second_user = assigns(:resource)
-            @second_access_token = response.headers['access-token']
+            @second_access_token = response.headers['Access-Token']
           end
 
           it 'should allow both requests through' do
@@ -210,14 +210,14 @@ class DemoUserControllerTest < ActionDispatch::IntegrationTest
 
             @first_is_batch_request = assigns(:is_batch_request)
             @first_user = assigns(:resource).dup
-            @first_access_token = response.headers['access-token']
+            @first_access_token = response.headers['Access-Token']
             @first_response_status = response.status
 
             get '/demo/members_only?unbatch=true', {}, @auth_headers
 
             @second_is_batch_request = assigns(:is_batch_request)
             @second_user = assigns(:resource)
-            @second_access_token = response.headers['access-token']
+            @second_access_token = response.headers['Access-Token']
             @second_response_status = response.status
           end
 
@@ -235,7 +235,7 @@ class DemoUserControllerTest < ActionDispatch::IntegrationTest
 
             @first_is_batch_request = assigns(:is_batch_request)
             @first_user = assigns(:resource).dup
-            @first_access_token = response.headers['access-token']
+            @first_access_token = response.headers['Access-Token']
             @first_response_status = response.status
 
             @resource.reload
@@ -246,7 +246,7 @@ class DemoUserControllerTest < ActionDispatch::IntegrationTest
 
             @second_is_batch_request = assigns(:is_batch_request)
             @second_user = assigns(:resource)
-            @second_access_token = response.headers['access-token']
+            @second_access_token = response.headers['Access-Token']
             @second_response_status = response.status
           end
 
@@ -304,7 +304,7 @@ class DemoUserControllerTest < ActionDispatch::IntegrationTest
           # no auth headers sent, testing that warden authenticates correctly.
           get '/demo/members_only', {}, nil
 
-          @resp_token       = response.headers['access-token']
+          @resp_token       = response.headers['Access-Token']
           @resp_client_id   = response.headers['client']
           @resp_expiry      = response.headers['expiry']
           @resp_uid         = response.headers['uid']
@@ -367,7 +367,7 @@ class DemoUserControllerTest < ActionDispatch::IntegrationTest
 
           get '/demo/members_only', {}, @auth_headers
 
-          @resp_token       = response.headers['access-token']
+          @resp_token       = response.headers['Access-Token']
           @resp_client_id   = response.headers['client']
           @resp_expiry      = response.headers['expiry']
           @resp_uid         = response.headers['uid']

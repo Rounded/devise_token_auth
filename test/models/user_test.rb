@@ -55,7 +55,7 @@ class UserTest < ActiveSupport::TestCase
 
         @auth_headers = @resource.create_new_auth_token
 
-        @token     = @auth_headers['access-token']
+        @token     = @auth_headers['Access-Token']
         @client_id = @auth_headers['client']
       end
 
