@@ -200,7 +200,7 @@ module DeviseTokenAuth::Concerns::User
 
     return {
       "Access-Token" => token,
-      "Authorization"=> "Bearer #{token}"
+      "Authorization"=> "Bearer #{token}",
       "Token-Type"   => "Bearer",
       "Client"       => client_id,
       "Expiry"       => expiry.to_s,
